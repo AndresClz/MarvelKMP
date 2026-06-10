@@ -1,0 +1,62 @@
+{
+  "code": 200,
+  "status": "Ok",
+  "data": {
+    "results": [
+      {
+        "id": 1009368,
+        "name": "Iron Fist",
+        "description": "Trained in the martial arts of K'un-Lun, Danny Rand returned to New York and became the Immortal Iron Fist.",
+        "thumbnail": {
+          "path": "https://placehold.co/200x200?text=IronFist",
+          "extension": "jpg"
+        }
+      },
+      {
+        "id": 1009664,
+        "name": "Thor",
+        "description": "As the Norse God of thunder and lightning, Thor wields one of the greatest weapons ever made, the enchanted hammer Mjolnir.",
+        "thumbnail": {
+          "path": "https://placehold.co/200x200?text=Thor",
+          "extension": "jpg"
+        }
+      },
+      {
+        "id": 1017100,
+        "name": "Iron Man",
+        "description": "Genius. Billionaire. Playboy. Philanthropist. Tony Stark's got it all, and that's just the beginning.",
+        "thumbnail": {
+          "path": "https://placehold.co/200x200?text=IronMan",
+          "extension": "jpg"
+        }
+      },
+      {
+        "id": 1011490,
+        "name": "Rocket Raccoon",
+        "description": "",
+        "thumbnail": {
+          "path": "https://placehold.co/200x200?text=RocketRaccoon",
+          "extension": "jpg"
+        }
+      },
+      {
+        "id": 1010903,
+        "name": "Groot",
+        "description": "",
+        "thumbnail": {
+          "path": "https://placehold.co/200x200?text=Groot",
+          "extension": "jpg"
+        }
+      },
+      {
+        "id": 1009562,
+        "name": "Scarlet Witch",
+        "description": "",
+        "thumbnail": {
+          "path": "https://placehold.co/200x200?text=ScarletWitch",
+          "extension": "jpg"
+        }
+      }
+    ]
+  }
+}
