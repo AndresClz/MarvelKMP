@@ -7,21 +7,15 @@ import com.example.marvelkmp.domain.CharactersRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import kotlinx.serialization.json.Json
 
 class KtorCharactersRepository(
     private val client: HttpClient,
 ) : CharactersRepository {
-    private val json =
-        Json {
-            ignoreUnknownKeys = true
-        }
-
     override suspend fun getCharacters(): List<Character> {
-        val response =
-            json.decodeFromString<CharactersResponse>(
-                client.get(Constants.CHARACTERS_URL).body<String>(),
-            )
+        val response: CharactersResponse =
+            client
+                .get(Constants.CHARACTERS_URL)
+                .body<CharactersResponse>()
 
         return response.data.results.map { dto ->
             Character(
