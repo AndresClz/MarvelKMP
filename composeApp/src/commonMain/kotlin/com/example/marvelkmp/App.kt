@@ -28,6 +28,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.marvelkmp.data.local.CacheCharactersRepository
+import com.example.marvelkmp.data.local.DatabaseDriverFactory
+import com.example.marvelkmp.data.local.createDatabase
 import com.example.marvelkmp.data.network.HttpClientFactory
 import com.example.marvelkmp.data.repositories.KtorCharactersRepository
 import com.example.marvelkmp.domain.Character
@@ -37,13 +40,16 @@ import com.example.marvelkmp.ui.CharactersViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App() {
+fun App(driverFactory: DatabaseDriverFactory) {
     val viewModel =
         viewModel {
             CharactersViewModel(
                 CharactersService(
-                    KtorCharactersRepository(
-                        HttpClientFactory.create(),
+                    CacheCharactersRepository(
+                        KtorCharactersRepository(
+                            HttpClientFactory.create(),
+                        ),
+                        createDatabase(driverFactory),
                     ),
                 ),
             )
