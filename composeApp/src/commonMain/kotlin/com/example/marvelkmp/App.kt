@@ -28,7 +28,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.marvelkmp.data.MockCharactersRepository
+import com.example.marvelkmp.data.network.HttpClientFactory
+import com.example.marvelkmp.data.repositories.KtorCharactersRepository
 import com.example.marvelkmp.domain.Character
 import com.example.marvelkmp.domain.CharactersService
 import com.example.marvelkmp.domain.ScreenState
@@ -37,34 +38,43 @@ import com.example.marvelkmp.ui.CharactersViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App() {
-    val viewModel = viewModel {
-        CharactersViewModel(CharactersService(MockCharactersRepository()))
-        // Int. 2 reemplaza por: KtorCharactersRepository(HttpClientFactory.create(), ...)
-    }
+    val viewModel =
+        viewModel {
+            CharactersViewModel(
+                CharactersService(
+                    KtorCharactersRepository(
+                        HttpClientFactory.create(),
+                    ),
+                ),
+            )
+        }
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     MaterialTheme {
         Scaffold(
             topBar = {
                 TopAppBar(title = { Text("Marvel") })
-            }
+            },
         ) { paddingValues ->
             when (val current = state) {
                 is ScreenState.Loading -> {
                     Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .padding(paddingValues),
                         contentAlignment = Alignment.Center,
                     ) {
                         CircularProgressIndicator()
                     }
                 }
+
                 is ScreenState.ShowCharacters -> {
                     LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .padding(paddingValues),
                     ) {
                         items(current.characters) { character ->
                             CharacterItem(character)
@@ -79,15 +89,17 @@ fun App() {
 @Composable
 private fun CharacterItem(character: Character) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            modifier = Modifier
-                .size(72.dp)
-                .background(Color.LightGray),
+            modifier =
+                Modifier
+                    .size(72.dp)
+                    .background(Color.LightGray),
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier.weight(1f)) {
@@ -99,10 +111,11 @@ private fun CharacterItem(character: Character) {
             if (character.description.isBlank()) {
                 Text(
                     text = "Sin descripción disponible",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontStyle = FontStyle.Italic,
-                        color = Color.Gray,
-                    ),
+                    style =
+                        MaterialTheme.typography.bodySmall.copy(
+                            fontStyle = FontStyle.Italic,
+                            color = Color.Gray,
+                        ),
                 )
             } else {
                 Text(
