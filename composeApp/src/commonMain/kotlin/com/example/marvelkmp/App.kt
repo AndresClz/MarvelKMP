@@ -35,7 +35,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.marvelkmp.data.MockCharactersRepository
+import com.example.marvelkmp.data.local.CacheCharactersRepository
+import com.example.marvelkmp.data.local.DatabaseDriverFactory
+import com.example.marvelkmp.data.local.createDatabase
+import com.example.marvelkmp.data.network.HttpClientFactory
+import com.example.marvelkmp.data.repositories.KtorCharactersRepository
 import com.example.marvelkmp.domain.Character
 import com.example.marvelkmp.domain.CharactersService
 import com.example.marvelkmp.domain.ScreenState
@@ -48,29 +52,41 @@ import marvelkmp.composeapp.generated.resources.image_not_found
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App() {
-    val viewModel = viewModel {
-        CharactersViewModel(CharactersService(MockCharactersRepository()))
-    }
+fun App(driverFactory: DatabaseDriverFactory) {
+    val viewModel =
+        viewModel {
+            CharactersViewModel(
+                CharactersService(
+                    CacheCharactersRepository(
+                        KtorCharactersRepository(
+                            HttpClientFactory.create(),
+                        ),
+                        createDatabase(driverFactory),
+                    ),
+                ),
+            )
+        }
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     MaterialTheme {
         Scaffold(
             topBar = {
                 TopAppBar(title = { Text("Marvel") })
-            }
+            },
         ) { paddingValues ->
             when (val current = state) {
                 is ScreenState.Loading -> {
                     Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .padding(paddingValues),
                         contentAlignment = Alignment.Center,
                     ) {
                         CircularProgressIndicator()
                     }
                 }
+
                 is ScreenState.ShowCharacters -> {
                     LazyColumn(
                         modifier = Modifier

@@ -1,0 +1,16 @@
+CREATE TABLE CharacterEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    thumbnailUrl TEXT NOT NULL
+);
+
+insertCharacter:
+INSERT OR REPLACE INTO CharacterEntity(id, name, description, thumbnailUrl)
+VALUES (?, ?, ?, ?);
+
+selectAllCharacters:
+SELECT * FROM CharacterEntity;
+
+clearCharacters:
+DELETE FROM CharacterEntity;
