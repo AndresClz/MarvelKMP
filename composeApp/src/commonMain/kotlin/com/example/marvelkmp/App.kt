@@ -1,6 +1,7 @@
 package com.example.marvelkmp
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -83,9 +84,19 @@ fun App(driverFactory: DatabaseDriverFactory) {
                                 .padding(paddingValues),
                     ) {
                         items(current.characters) { character ->
-                            CharacterItem(character)
+                            CharacterItem(
+                                character = character,
+                                onClick = {viewModel.selectCharacter(character)}
+                            )
                         }
                     }
+                }
+
+                is ScreenState.ShowDetail -> {
+                    DetailScreen(
+                        character = current.character,
+                        onBack = { viewModel.back() }
+                    )
                 }
             }
         }
@@ -93,11 +104,13 @@ fun App(driverFactory: DatabaseDriverFactory) {
 }
 
 @Composable
-private fun CharacterItem(character: Character) {
+private fun CharacterItem(character: Character,
+                           onClick: () -> Unit) {
     Row(
         modifier =
             Modifier
                 .fillMaxWidth()
+                .clickable { onClick() }
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -130,6 +143,19 @@ private fun CharacterItem(character: Character) {
                     maxLines = 3,
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun DetailScreen(character: Character, onBack: () -> Unit) {
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        androidx.compose.material3.Text("Detalle de: ${character.name}", style = androidx.compose.material3.MaterialTheme.typography.headlineMedium)
+        Spacer(modifier = Modifier.height(16.dp))
+        androidx.compose.material3.Text(text = character.description)
+        Spacer(modifier = Modifier.height(24.dp))
+        androidx.compose.material3.Button(onClick = onBack) {
+            androidx.compose.material3.Text("Volver")
         }
     }
 }
