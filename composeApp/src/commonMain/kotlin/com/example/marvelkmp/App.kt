@@ -44,6 +44,7 @@ import com.example.marvelkmp.domain.Character
 import com.example.marvelkmp.domain.CharactersService
 import com.example.marvelkmp.domain.ScreenState
 import com.example.marvelkmp.ui.CharactersViewModel
+import io.github.aakira.napier.Napier
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.painterResource
@@ -131,7 +132,9 @@ private fun CharacterItem(character: Character) {
                             .background(Color.LightGray),
                     )
                 },
-                onFailure = {
+                onFailure = { exception ->
+                    Napier.i(character.thumbnailUrl)
+                    Napier.e(exception.message.toString(), exception, "Kamel")
                     Image(
                         painter = painterResource(Res.drawable.image_not_found),
                         contentDescription = "Error loading image",

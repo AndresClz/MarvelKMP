@@ -22,7 +22,7 @@ class KtorCharactersRepository(
                 id = dto.id,
                 name = dto.name,
                 description = dto.description,
-                thumbnailUrl = "${dto.thumbnail.path}.${dto.thumbnail.extension}",
+                thumbnailUrl = dto.thumbnail.path
             )
         }
     }
