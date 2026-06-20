@@ -2,6 +2,12 @@
 
 Aplicación Kotlin Multiplatform (KMP) que muestra personajes del universo Marvel. Proyecto universitario desarrollado en la materia Taller de Programación — UNLAM.
 
+## Screenshots
+
+| Android | iOS |
+|---|---|
+| ![Android](assets/app_android_screenshot.png) | ![iOS](assets/app_ios_screenshot.png) |
+
 ## ¿Qué hace?
 
 - Lista personajes Marvel ordenados por relevancia
