@@ -14,11 +14,9 @@ object HttpClientFactory {
         HttpClient(httpClientEngine()) {
             install(Logging) { level = LogLevel.INFO }
             install(ContentNegotiation) {
+                json(Json { ignoreUnknownKeys = true; isLenient = true })
                 json(
-                    Json {
-                        ignoreUnknownKeys = true
-                        isLenient = true
-                    },
+                    Json { ignoreUnknownKeys = true; isLenient = true },
                     contentType = ContentType.Text.Plain,
                 )
             }

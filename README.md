@@ -8,6 +8,18 @@ Aplicación Kotlin Multiplatform (KMP) que muestra personajes del universo Marve
 |---|---|
 | ![Android](assets/app_android_screenshot.png) | ![iOS](assets/app_ios_screenshot.png) |
 
+## Nota sobre la API de Marvel
+
+La API oficial de Marvel (`developer.marvel.com`) requiere autenticación mediante tres parámetros: `ts` (timestamp), `apikey` (clave pública) y `hash` (md5 del timestamp + clave privada + clave pública). Esta lógica está implementada en `KtorCharactersRepository` y `Md5.kt` con soporte nativo para Android y iOS.
+
+Sin embargo, la API oficial **no está disponible** al momento de desarrollo. Como alternativa, se creó un JSON propio que replica exactamente la estructura de respuesta de la API real, servido desde:
+
+```
+https://raw.githubusercontent.com/AndresClz/MarvelKMP/main/mock/characters.json
+```
+
+El mock ignora los parámetros de autenticación, pero la implementación está lista para apuntar a la API real reemplazando `CHARACTERS_URL` en `Constants.kt` y completando `PUBLIC_KEY` y `PRIVATE_KEY`.
+
 ## ¿Qué hace?
 
 - Lista personajes Marvel ordenados por relevancia
