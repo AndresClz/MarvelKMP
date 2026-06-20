@@ -97,9 +97,20 @@ fun App(driverFactory: DatabaseDriverFactory) {
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(current.characters) { character ->
-                            CharacterItem(character)
+                            CharacterItem(
+                                character = character,
+                                onClick = { viewModel.selectCharacter(character) }
+                            )
                         }
                     }
+                }
+
+                is ScreenState.ShowDetail -> {
+                    DetailScreen(
+                        character = current.character,
+                        onBack = { viewModel.back() },
+                        paddingValues = paddingValues
+                    )
                 }
             }
         }
@@ -107,10 +118,14 @@ fun App(driverFactory: DatabaseDriverFactory) {
 }
 
 @Composable
-private fun CharacterItem(character: Character) {
+private fun CharacterItem(
+    character: Character,
+    onClick: () -> Unit
+) {
     ElevatedCard(
         modifier = Modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier
@@ -169,6 +184,25 @@ private fun CharacterItem(character: Character) {
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun DetailScreen(character: Character,
+                 onBack: () -> Unit,
+                 paddingValues: PaddingValues) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(paddingValues).padding(horizontal = 16.dp)) {
+        androidx.compose.material3.Text(
+            "Detalle de: ${character.name}",
+            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        androidx.compose.material3.Text(text = character.description)
+        Spacer(modifier = Modifier.height(24.dp))
+        androidx.compose.material3.Button(onClick = onBack) {
+            androidx.compose.material3.Text("Volver")
         }
     }
 }

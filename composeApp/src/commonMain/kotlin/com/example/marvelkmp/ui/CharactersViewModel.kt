@@ -2,6 +2,7 @@ package com.example.marvelkmp.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.marvelkmp.domain.Character
 import com.example.marvelkmp.domain.CharactersService
 import com.example.marvelkmp.domain.ScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,12 @@ class CharactersViewModel(
     init {
         load()
     }
+
+    fun selectCharacter(character: Character) {
+        _state.value = ScreenState.ShowDetail(character)
+    }
+
+    fun back() { load() }
 
     private fun load() = viewModelScope.launch {
         _state.value = ScreenState.Loading
