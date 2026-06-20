@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -86,7 +87,7 @@ fun App(driverFactory: DatabaseDriverFactory) {
                         items(current.characters) { character ->
                             CharacterItem(
                                 character = character,
-                                onClick = {viewModel.selectCharacter(character)}
+                                onClick = { viewModel.selectCharacter(character) }
                             )
                         }
                     }
@@ -95,7 +96,8 @@ fun App(driverFactory: DatabaseDriverFactory) {
                 is ScreenState.ShowDetail -> {
                     DetailScreen(
                         character = current.character,
-                        onBack = { viewModel.back() }
+                        onBack = { viewModel.back() },
+                        paddingValues = paddingValues
                     )
                 }
             }
@@ -104,8 +106,10 @@ fun App(driverFactory: DatabaseDriverFactory) {
 }
 
 @Composable
-private fun CharacterItem(character: Character,
-                           onClick: () -> Unit) {
+private fun CharacterItem(
+    character: Character,
+    onClick: () -> Unit
+) {
     Row(
         modifier =
             Modifier
@@ -148,9 +152,15 @@ private fun CharacterItem(character: Character,
 }
 
 @Composable
-fun DetailScreen(character: Character, onBack: () -> Unit) {
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        androidx.compose.material3.Text("Detalle de: ${character.name}", style = androidx.compose.material3.MaterialTheme.typography.headlineMedium)
+fun DetailScreen(character: Character,
+                 onBack: () -> Unit,
+                 paddingValues: PaddingValues) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(paddingValues).padding(horizontal = 16.dp)) {
+        androidx.compose.material3.Text(
+            "Detalle de: ${character.name}",
+            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
+        )
         Spacer(modifier = Modifier.height(16.dp))
         androidx.compose.material3.Text(text = character.description)
         Spacer(modifier = Modifier.height(24.dp))
