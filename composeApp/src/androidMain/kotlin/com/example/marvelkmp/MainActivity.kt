@@ -13,7 +13,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        Napier.base(DebugAntilog())
+        if (savedInstanceState == null) {
+            Napier.base(DebugAntilog())
+        }
 
         setContent {
             App(DatabaseDriverFactory(this))
