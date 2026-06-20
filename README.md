@@ -1,35 +1,71 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# MarvelKMP
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+Aplicación Kotlin Multiplatform (KMP) que muestra personajes del universo Marvel. Proyecto universitario desarrollado en la materia Taller de Programación — UNLAM.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## ¿Qué hace?
 
-### Build and Run Android Application
+- Lista personajes Marvel ordenados por relevancia
+- Navega al detalle de cada personaje con imagen y descripción
+- Persiste los datos en caché local para funcionar sin red
+- Corre en Android e iOS desde una única base de código compartida
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+## Stack tecnológico
 
-### Build and Run iOS Application
+| Capa | Tecnología |
+|---|---|
+| UI | Compose Multiplatform 1.10.3 |
+| Navegación | Voyager 2.2.21 + SlideTransition |
+| Red | Ktor 3.1.3 |
+| Serialización | Kotlin Serialization 1.8.1 |
+| Caché | SQLDelight 2.3.2 |
+| Imágenes | Kamel 1.0.9 |
+| Logs | Napier 2.7.1 |
+| ViewModel | AndroidX Lifecycle KMP 2.10.0 |
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+## Arquitectura
 
----
+Clean Architecture + MVVM, con toda la capa de datos y dominio en `commonMain`.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+```
+commonMain/
+├── data/
+│   ├── dto/                  # DTOs @Serializable (respuesta de API)
+│   ├── local/                # CacheCharactersRepository (SQLDelight)
+│   ├── network/              # HttpClientFactory (Ktor)
+│   └── repositories/         # KtorCharactersRepository
+├── domain/
+│   ├── Character.kt          # modelo de dominio
+│   ├── CharactersRepository.kt
+│   └── CharactersService.kt  # regla de ordenamiento
+└── ui/
+    └── screens/
+        ├── home/
+        │   ├── HomeScreen.kt
+        │   └── HomeViewModel.kt
+        └── detail/
+            └── DetailScreen.kt
+```
+
+**Patrón de caché:** `CacheCharactersRepository` decora a `KtorCharactersRepository` — intenta la red primero, guarda en SQLDelight y sirve desde caché ante fallos.
+
+**Navegación:** Voyager maneja el backstack. `HomeScreen` hace `navigator.push(DetailScreen(character))`; el botón Volver hace `navigator.pop()`. La transición slide derecha→izquierda es automática en ambas plataformas.
+
+## Cómo correr
+
+**Android** — macOS/Linux
+```bash
+./gradlew :composeApp:assembleDebug
+```
+
+**Android** — Windows
+```bash
+.\gradlew.bat :composeApp:assembleDebug
+```
+
+**iOS** — solo macOS  
+Abrir `/iosApp` en Xcode y correr desde ahí, o usar la configuración de run en Android Studio con el plugin KMP.
+
+**Tests**
+```bash
+./gradlew :composeApp:allTests
+```
