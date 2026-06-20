@@ -54,6 +54,8 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.sqldelight.runtime)
             implementation(libs.napier)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transitions)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

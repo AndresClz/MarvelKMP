@@ -19,6 +19,7 @@ kamel = "1.0.9"
 kotlinxSerialization = "1.8.1"
 sqldelight = "2.3.2"
 napier = "2.7.1"
+voyager = "2.2.21-1.10.3"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -54,6 +55,8 @@ sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", versi
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 kamel-default = { module = "media.kamel:kamel-image-default", version.ref = "kamel" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
