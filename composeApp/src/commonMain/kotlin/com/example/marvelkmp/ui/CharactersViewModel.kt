@@ -17,6 +17,8 @@ class CharactersViewModel(
     private val _state = MutableStateFlow<ScreenState>(ScreenState.Loading)
     val state: StateFlow<ScreenState> = _state.asStateFlow()
 
+    private var cachedCharacters: List<Character>? = null
+
     init {
         load()
     }
@@ -25,12 +27,21 @@ class CharactersViewModel(
         _state.value = ScreenState.ShowDetail(character)
     }
 
-    fun back() { load() }
+    fun back() {
+        val characters = cachedCharacters
+        if (characters != null) {
+            _state.value = ScreenState.ShowCharacters(characters)
+        } else {
+            load()
+        }
+    }
 
     private fun load() = viewModelScope.launch {
         _state.value = ScreenState.Loading
         try {
-            _state.value = ScreenState.ShowCharacters(service.getOrderedCharacters())
+            val characters = service.getOrderedCharacters()
+            cachedCharacters = characters
+            _state.value = ScreenState.ShowCharacters(characters)
         } catch (e: Exception) {
             println("CharactersViewModel: error loading characters: $e")
         }
