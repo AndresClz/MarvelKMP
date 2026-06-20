@@ -187,22 +187,3 @@ private fun CharacterItem(
         }
     }
 }
-
-@Composable
-fun DetailScreen(character: Character,
-                 onBack: () -> Unit,
-                 paddingValues: PaddingValues) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(paddingValues).padding(horizontal = 16.dp)) {
-        androidx.compose.material3.Text(
-            "Detalle de: ${character.name}",
-            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        androidx.compose.material3.Text(text = character.description)
-        Spacer(modifier = Modifier.height(24.dp))
-        androidx.compose.material3.Button(onClick = onBack) {
-            androidx.compose.material3.Text("Volver")
-        }
-    }
-}
