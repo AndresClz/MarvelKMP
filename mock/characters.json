@@ -8,8 +8,8 @@
         "name": "Iron Fist",
         "description": "Trained in the martial arts of K'un-Lun, Danny Rand returned to New York and became the Immortal Iron Fist.",
         "thumbnail": {
-          "path": "https://placehold.co/200x200.jpg?text=IronFist",
-          "extension": "jpg"
+          "path": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/SDCC_2012_-_Iron_Fist_%287574609830%29.jpg/960px-SDCC_2012_-_Iron_Fist_%287574609830%29.jpg",
+          "extension": ""
         }
       },
       {
@@ -17,8 +17,8 @@
         "name": "Thor",
         "description": "As the Norse God of thunder and lightning, Thor wields one of the greatest weapons ever made, the enchanted hammer Mjolnir.",
         "thumbnail": {
-          "path": "https://placehold.co/200x200.jpg?text=Thor",
-          "extension": "jpg"
+          "path": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Cosplay_of_Thor_%28Marvel%29_at_Made_in_Asia_2022_%2852104540946%29.jpg/960px-Cosplay_of_Thor_%28Marvel%29_at_Made_in_Asia_2022_%2852104540946%29.jpg",
+          "extension": ""
         }
       },
       {
@@ -26,8 +26,8 @@
         "name": "Iron Man",
         "description": "Genius. Billionaire. Playboy. Philanthropist. Tony Stark's got it all, and that's just the beginning.",
         "thumbnail": {
-          "path": "https://placehold.co/200x200.jpg?text=IronMan",
-          "extension": "jpg"
+          "path": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Cosplay_of_Iron_Man_at_GEMA_2022.jpg/960px-Cosplay_of_Iron_Man_at_GEMA_2022.jpg",
+          "extension": ""
         }
       },
       {
@@ -35,8 +35,8 @@
         "name": "Rocket Raccoon",
         "description": "",
         "thumbnail": {
-          "path": "https://placehold.co/200x200.jpg?text=RocketRaccoon",
-          "extension": "jpg"
+          "path": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/C2E2_2015_-_Rocket_Raccoon_%2816683662034%29.jpg/960px-C2E2_2015_-_Rocket_Raccoon_%2816683662034%29.jpg",
+          "extension": ""
         }
       },
       {
@@ -44,8 +44,8 @@
         "name": "Groot",
         "description": "",
         "thumbnail": {
-          "path": "https://placehold.co/200x200.jpg?text=Groot",
-          "extension": "jpg"
+          "path": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/C2E2_2016_Contest_-_Rocket_Racoon_%26_Groot_%2834129673716%29.jpg/960px-C2E2_2016_Contest_-_Rocket_Racoon_%26_Groot_%2834129673716%29.jpg",
+          "extension": ""
         }
       },
       {
@@ -53,8 +53,8 @@
         "name": "Scarlet Witch",
         "description": "",
         "thumbnail": {
-          "path": "https://placehold.co/200x200.jpg?text=ScarletWitch",
-          "extension": "jpg"
+          "path": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/2021-10-30_11-00-32_ILCE-7C_DSC06467_DxO.jpg/960px-2021-10-30_11-00-32_ILCE-7C_DSC06467_DxO.jpg",
+          "extension": ""
         }
       }
     ]
